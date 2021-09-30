@@ -22,9 +22,6 @@ public class OrderItemSummary {
     private int itemSummaryId;
 
     @NotBlank
-    private int itemId;
-
-    @NotBlank
     private String itemName;
 
     @NotNull
@@ -32,6 +29,9 @@ public class OrderItemSummary {
 
     @NotNull
     private float discount;
+
+    @NotNull
+    private Integer quantity;
 
     @NotNull
     @Column(name = "order_id")
