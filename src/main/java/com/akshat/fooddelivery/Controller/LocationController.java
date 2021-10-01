@@ -4,7 +4,12 @@ import com.akshat.fooddelivery.model.FoodItems;
 import com.akshat.fooddelivery.model.Location;
 import com.akshat.fooddelivery.model.Restaurant;
 import com.akshat.fooddelivery.repository.LocationRepository;
+import com.akshat.fooddelivery.repository.RestaurantRepository;
+import com.akshat.fooddelivery.services.Imp.RestaurantServiceImp;
+import com.akshat.fooddelivery.services.LocationService;
+import com.akshat.fooddelivery.services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,32 +20,54 @@ import java.util.Optional;
 @RequestMapping("/api/v1/location")
 public class LocationController {
 
-    private final LocationRepository locationRepository;
+    @Autowired
+    private LocationRepository locationRepository;
 
     @Autowired
-    public LocationController(LocationRepository locationRepository) {
-        this.locationRepository = locationRepository;
-    }
+    private LocationService locationService;
+
+    @Autowired
+    private RestaurantService restaurantService;
+
     @GetMapping
     public ResponseEntity<List<Location>> getAllLocation(){
-        return null;
+        return new ResponseEntity<>(locationRepository.findAll(), HttpStatus.OK);
     }
-    @GetMapping("/{location}")
-    public ResponseEntity<List<Restaurant>> getAllRestaurants(@RequestParam("rating") Optional<Long> rating,
+    @GetMapping("/{locationId}")
+    public ResponseEntity<List<Restaurant>> getAllRestaurants(@RequestParam("rating") Optional<Double> rating,
                                                               @RequestParam("price") Optional<Double> avePrice,
-                                                              @PathVariable String location){
-        return null;
+                                                              @PathVariable Integer locationId){
+        if(rating.isPresent() && avePrice.isPresent()){
+            return new ResponseEntity<>(
+                    restaurantService.findByLocationAndPriceAndRating(locationId,avePrice.get(),rating.get()),
+                    HttpStatus.OK);
+        }
+        else if(rating.isPresent()){
+            return new ResponseEntity<>(
+                    restaurantService.findByLocationAndRating(locationId,rating.get()),
+                    HttpStatus.OK);
+        }
+        else if(avePrice.isPresent()){
+            return new ResponseEntity<>(
+                    restaurantService.findByLocationAndPrice(locationId,avePrice.get()),
+                    HttpStatus.OK);
+        }
+        return new ResponseEntity<>(
+                restaurantService.findByLocation(locationId),
+                HttpStatus.OK);
     }
     @PostMapping({""})
-    public ResponseEntity<Location> addLocation(@RequestBody FoodItems foodItems){
-        return null;
+    public ResponseEntity<Location> addLocation(@RequestBody Location location){
+        locationRepository.save(location);
+        return new ResponseEntity<>(location, HttpStatus.CREATED);
     }
     @PutMapping({"/{id}"})
-    public ResponseEntity<Location> updateLocation(@PathVariable String id){
-        return null;
+    public ResponseEntity<Location> updateLocation(@PathVariable Long id,@RequestBody Location location){
+        return new ResponseEntity<>(locationService.updateLocation(id,location),HttpStatus.CREATED);
     }
     @GetMapping({"/{id}"})
-    public ResponseEntity<Location> getLocationById(@PathVariable String id){
-        return null;
+    public ResponseEntity<Location> getLocationById(@PathVariable Long id){
+        Optional<Location> location = locationRepository.findById(id);
+        return location.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElse(null);
     }
 }

@@ -14,17 +14,17 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Builder
 public class Restaurant {
-    @Id()
-    private int restaurantId;
+    @Id
+    private Long restaurantId;
 
     @NotBlank
     private String restaurantName;
 
     @NotNull
-    private int rating;
+    private double rating;
 
     @NotNull
-    private double maxPrice;
+    private double avgPrice;
 
     private int locationId;
 }

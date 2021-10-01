@@ -15,7 +15,7 @@ import java.util.List;
 public class OrderSummary implements Serializable {
     @Id
     @GeneratedValue
-    private int orderId;
+    private int Id;
     private int userId;
 
     private int restaurantId;

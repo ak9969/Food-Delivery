@@ -19,7 +19,9 @@ public class OrderItemSummary {
 
     @Id
     @GeneratedValue
-    private int itemSummaryId;
+    @NotNull
+    @Column(name = "order_id")
+    private int orderId;
 
     @NotBlank
     private String itemName;
@@ -33,7 +35,4 @@ public class OrderItemSummary {
     @NotNull
     private Integer quantity;
 
-    @NotNull
-    @Column(name = "order_id")
-    private int orderId;
 }
