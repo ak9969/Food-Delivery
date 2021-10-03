@@ -4,6 +4,8 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
@@ -15,9 +17,12 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class FoodItems {
     @Id
-    private int itemId;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
     @NotNull
     private Long restaurantId;
+    @NotBlank
+    private String foodName;
     @NotBlank
     private String restaurantName;
     @NotNull

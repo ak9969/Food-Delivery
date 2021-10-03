@@ -36,6 +36,7 @@ public class FoodController {
     @PostMapping({""})
     public ResponseEntity<FoodItems> addFoodItem(@RequestBody FoodItems foodItems){
         foodItemRepository.save(foodItems);
+        //foodItemRepository.save(foodItems);
         return new ResponseEntity<>(foodItems,HttpStatus.CREATED);
     }
     @PutMapping({"/{Id}"})
@@ -48,7 +49,7 @@ public class FoodController {
     public ResponseEntity<FoodItems> updateItemPrice(@PathVariable("restaurant_id") Long restaurantId,
                                                      @PathVariable("item_id") int itemId,
                                                      @RequestParam("price") double price){
-        Optional<FoodItems> foodItems = foodItemRepository.findByItemIdAndRestaurantId(itemId,restaurantId);
+        Optional<FoodItems> foodItems = foodItemRepository.findByIdAndRestaurantId(itemId,restaurantId);
         if(foodItems.isPresent()){
             FoodItems getFoodItem = foodItems.get();
             getFoodItem.setItemPrice(price);

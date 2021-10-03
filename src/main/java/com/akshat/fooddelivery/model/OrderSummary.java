@@ -3,6 +3,8 @@ package com.akshat.fooddelivery.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,11 +17,12 @@ import java.util.List;
 public class OrderSummary implements Serializable {
     @Id
     @GeneratedValue
-    private int Id;
-    private int userId;
+    private Long Id;
 
+    @NotNull
     private int restaurantId;
 
+    @NotBlank
     private String restaurantName;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -20,7 +20,7 @@ public class FoodServiceImp implements FoodService {
         FoodItems getFoodItem = null;
         if(currentFoodItem.isPresent()){
             getFoodItem = currentFoodItem.get();
-            getFoodItem.setItemId(foodItems.getItemId());
+            getFoodItem.setId(foodItems.getId());
             getFoodItem.setItemPrice(foodItems.getItemPrice());
             getFoodItem.setRestaurantId(foodItems.getRestaurantId());
             getFoodItem.setRestaurantName(foodItems.getRestaurantName());

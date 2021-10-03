@@ -63,7 +63,7 @@ public class RestaurantServiceImp implements RestaurantService {
 
     @Override
     public FoodItems updateItemPriceByRestaurantId(Long restaurantId, int itemId, double itemPrice) {
-        Optional<FoodItems> foodItems = foodItemRepository.findByItemIdAndRestaurantId(itemId,restaurantId);
+        Optional<FoodItems> foodItems = foodItemRepository.findByIdAndRestaurantId(itemId,restaurantId);
         if(foodItems.isPresent()){
             FoodItems foodItemObj = foodItems.get();
             foodItemObj.setItemPrice(itemPrice);
