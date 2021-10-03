@@ -16,7 +16,5 @@ public interface RestaurantService {
 
     Restaurant updateRestaurantsById(Restaurant restaurant,Long id);
 
-    List<FoodItems> findItemByRestaurantId(Long restaurantId);
 
-    FoodItems updateItemPriceByRestaurantId(Long restaurantId, int itemId, double itemPrice);
 }

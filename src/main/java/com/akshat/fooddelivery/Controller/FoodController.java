@@ -1,9 +1,7 @@
 package com.akshat.fooddelivery.Controller;
 
 import com.akshat.fooddelivery.model.FoodItems;
-import com.akshat.fooddelivery.model.Restaurant;
 import com.akshat.fooddelivery.repository.FoodItemRepository;
-import com.akshat.fooddelivery.services.FoodService;
 import com.akshat.fooddelivery.services.Imp.FoodServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +22,7 @@ public class FoodController {
     private FoodServiceImp foodServiceImp;
 
 
-    @GetMapping({"/allFood","/AllFood",})
+    @GetMapping({"/allFood","/AllFood","/allfood"})
     public ResponseEntity<List<FoodItems>> getAllFoodItems(){
         return new ResponseEntity<>(foodItemRepository.findAll(), HttpStatus.OK);
     }
@@ -47,7 +45,7 @@ public class FoodController {
     }
     @PutMapping(value = "/updateItemPrice/{item_id}/{restaurant_id}")
     public ResponseEntity<FoodItems> updateItemPrice(@PathVariable("restaurant_id") Long restaurantId,
-                                                     @PathVariable("item_id") int itemId,
+                                                     @PathVariable("item_id") Long itemId,
                                                      @RequestParam("price") double price){
         Optional<FoodItems> foodItems = foodItemRepository.findByIdAndRestaurantId(itemId,restaurantId);
         if(foodItems.isPresent()){

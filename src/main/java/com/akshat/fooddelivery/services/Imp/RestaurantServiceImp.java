@@ -54,21 +54,4 @@ public class RestaurantServiceImp implements RestaurantService {
         }
         return updatedRestaurant;
     }
-
-    @Override
-    public List<FoodItems> findItemByRestaurantId(Long restaurantId) {
-        return foodItemRepository.findByRestaurantId(restaurantId);
-    }
-
-
-    @Override
-    public FoodItems updateItemPriceByRestaurantId(Long restaurantId, int itemId, double itemPrice) {
-        Optional<FoodItems> foodItems = foodItemRepository.findByIdAndRestaurantId(itemId,restaurantId);
-        if(foodItems.isPresent()){
-            FoodItems foodItemObj = foodItems.get();
-            foodItemObj.setItemPrice(itemPrice);
-            return foodItemRepository.save(foodItemObj);
-        }
-        return null;
-    }
 }

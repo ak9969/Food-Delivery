@@ -1,11 +1,8 @@
 package com.akshat.fooddelivery.Controller;
 
-import com.akshat.fooddelivery.model.FoodItems;
 import com.akshat.fooddelivery.model.Location;
 import com.akshat.fooddelivery.model.Restaurant;
 import com.akshat.fooddelivery.repository.LocationRepository;
-import com.akshat.fooddelivery.repository.RestaurantRepository;
-import com.akshat.fooddelivery.services.Imp.RestaurantServiceImp;
 import com.akshat.fooddelivery.services.LocationService;
 import com.akshat.fooddelivery.services.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,10 +61,5 @@ public class LocationController {
     @PutMapping({"/{id}"})
     public ResponseEntity<Location> updateLocation(@PathVariable Long id,@RequestBody Location location){
         return new ResponseEntity<>(locationService.updateLocation(id,location),HttpStatus.CREATED);
-    }
-    @GetMapping({"/{id}"})
-    public ResponseEntity<Location> getLocationById(@PathVariable Long id){
-        Optional<Location> location = locationRepository.findById(id);
-        return location.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElse(null);
     }
 }

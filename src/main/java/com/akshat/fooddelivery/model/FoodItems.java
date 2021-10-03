@@ -26,5 +26,5 @@ public class FoodItems {
     @NotBlank
     private String restaurantName;
     @NotNull
-    private double itemPrice;
+    private Double itemPrice;
 }

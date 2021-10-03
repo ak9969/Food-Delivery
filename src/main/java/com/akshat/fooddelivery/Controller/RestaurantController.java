@@ -31,7 +31,7 @@ public class RestaurantController {
     @PostMapping("")
     public ResponseEntity<Restaurant> getRestaurantsById(@RequestBody Restaurant restaurant){
         restaurantRepository.save(restaurant);
-        return new ResponseEntity<>(restaurant,HttpStatus.OK);
+        return new ResponseEntity<>(restaurant,HttpStatus.CREATED);
     }
 
     @PutMapping("/{Id}")
